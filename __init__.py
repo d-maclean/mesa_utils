@@ -8,7 +8,7 @@ import mesa_reader as mr
 from .hr_diagram import *
 
 ## Get history files
-def load_dir_history(dir: str, ext: str = 'data') -> tuple[list,list]:
+def load_dir_history(dir: str, ext: str = 'data') -> tuple:
     '''
     Loads all MESA history files from `dir`.
     - Pass `ext` to specify the MESA history file extension; defaults to `data`.    
@@ -30,7 +30,7 @@ def load_dir_history(dir: str, ext: str = 'data') -> tuple[list,list]:
 
 
 def load_grid_history(dir: str,
-                     history_name: str = 'history.data', folders_dir: str = 'folders', logs_dir: str = 'LOGS') -> tuple[list,list]:
+                     history_name: str = 'history.data', folders_dir: str = 'folders', logs_dir: str = 'LOGS') -> tuple:
     '''
     Loads MESA history files named `history_name` from a grid directory structure located at `dir.`
     
