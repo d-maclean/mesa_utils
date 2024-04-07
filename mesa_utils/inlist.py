@@ -21,7 +21,7 @@ def format_inlist(settings: OrderedDict) -> str:
 
     text = ""
 
-    for key, value in OrderedDict.items():
+    for key, value in settings.items():
 
         if key.startswith("delim_"):
             text += f"\n{value}\n"
