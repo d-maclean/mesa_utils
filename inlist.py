@@ -21,12 +21,12 @@ def format_inlist(settings: OrderedDict) -> str:
 
     text = ""
 
-    for key, value in OrderedDict.items():
+    for key, value in settings.items():
 
         if key.startswith("delim_"):
             text += f"\n{value}\n"
         else:
-            text += f"{key} = {value}"
+            text += f"{key} = {value}\n"
     
     return text
 
@@ -61,8 +61,8 @@ def treat_lines(lines: list) -> OrderedDict:
     return settings
     
 
-def strip_duplicate_lines(settings: OrderedDict,
-                          reference: OrderedDict) -> OrderedDict:
+def strip_duplicate_lines(settings1: OrderedDict,
+                          settings2: OrderedDict) -> OrderedDict:
     """
     Takes two Dicts, 'settings' and 'reference.'
     Scans each key in 'settings,' and if the setting is the same in `reference,` removes it.
@@ -70,19 +70,21 @@ def strip_duplicate_lines(settings: OrderedDict,
     pruned_settings = OrderedDict()
     n_pruned_lines: int = 0
 
-    for key, value in settings.items():
+    for key, value in settings1.items():
         if key.startswith("delim_"):
             pruned_settings[key] = value
 
         else:
+            if key in settings2.keys():
+                if settings2[key] == value:
+                    n_pruned_lines +=1
+                    continue
 
-            if (key not in reference.keys()):
-                pruned_settings[key] = value
-            elif (key in reference.keys()):
-                if reference[key] != value:
+                elif settings2[key] != value:
                     pruned_settings[key] = value
+            
             else:
-                n_pruned_lines += 1
+                pruned_settings[key] = value
     
     print(f"Pruned {n_pruned_lines} settings.")
     return pruned_settings
