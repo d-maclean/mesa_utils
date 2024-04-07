@@ -5,6 +5,7 @@ import glob
 import numpy as np
 from matplotlib import pyplot as plt
 import mesa_reader as mr
+import inlist
 from .hr_diagram import *
 
 ## Get history files
