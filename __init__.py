@@ -21,11 +21,21 @@ def load_dir_history(dir: str, ext: str = 'data') -> tuple:
     history = np.empty(len(files), dtype=object)
     labels = np.empty(len(files), dtype=str)
 
-    for i, f in enumerate(files):
-        _data = mr.MesaData(f)
-        _name = os.path.split(f)[1]
-        history[i] = _data
-        labels[i] = _name
+    i = 0
+    for f in files:
+        try:
+            _data = mr.MesaData(f)
+            _name = os.path.split(f)[1]
+            history[i] = _data
+            labels[i] = _name
+            i += 1
+        except:
+            # stop us from getting yoinked when we have a 1-line history file
+            print(f"Skipping {f}; Perhpas there is a problem with history the file?")
+            continue
+
+    history = np.resize(history, i+1)
+    labels = np.resize(labels, i+1)
     
     return (history, labels)
 
@@ -43,14 +53,24 @@ def load_grid_history(dir: str,
     history = np.empty(len(files), dtype=object)
     labels = np.empty(len(files), dtype=str)
 
-    for i, f in enumerate(files):
-        _data = mr.MesaData(f)
-        LOGS_dir = os.path.split(f)[0]
-        star_dir = os.path.split(LOGS_dir)[0]
-        _name = star_dir.split(os.sep)[-1]
+    i = 0
+    for f in files:
+        try:
+            _data = mr.MesaData(f)
+            LOGS_dir = os.path.split(f)[0]
+            star_dir = os.path.split(LOGS_dir)[0]
+            _name = star_dir.split(os.sep)[-1]
 
-        history[i] = _data
-        labels[i] = _name
+            history[i] = _data
+            labels[i] = _name
+            i += 1
+        except:
+            # stop us from getting yoinked when we have a 1-line history file
+            print(f"Skipping {f}; Perhpas there is a problem with history the file?")
+            continue
+
+    history = np.resize(history, i+1)
+    labels = np.resize(labels, i+1)
     
     return (history, labels)
 
