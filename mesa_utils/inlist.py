@@ -3,9 +3,6 @@ import glob
 from collections import OrderedDict
 
 # open file, get list of lines
-# strip lines,
-#   iterate over list and remove whitespace and blank lines
-# 
 
 def get_lines(file_path) -> list:
     """Load an inlist file at `file_path` and split it into lines."""
@@ -37,7 +34,7 @@ def treat_lines(lines: list) -> OrderedDict:
     delim_ct = 0
 
     for l in lines:
-        l: str = l.strip()
+        l: str = l.strip().lower() # added to remove case nonsense
 
         if (not l.startswith(("!"))) and len(l) > 0:
 
@@ -59,7 +56,12 @@ def treat_lines(lines: list) -> OrderedDict:
                 delim_ct += 1
                     
     return settings
-    
+
+
+def get_settings(file_path) -> OrderedDict:
+    '''Get settings from an inlist, as it says on the tin.'''
+    return treat_lines(get_lines(file_path))
+
 
 def strip_duplicate_lines(settings1: OrderedDict,
                           settings2: OrderedDict) -> OrderedDict:
