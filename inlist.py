@@ -34,7 +34,7 @@ def treat_lines(lines: list) -> OrderedDict:
     delim_ct = 0
 
     for l in lines:
-        l: str = l.strip().lower() # added to remove case nonsense
+        l: str = l.strip()
 
         if (not l.startswith(("!"))) and len(l) > 0:
 
@@ -44,7 +44,7 @@ def treat_lines(lines: list) -> OrderedDict:
             
                 if l.find("=") != -1:
                     key, value = l.split("=",1)
-                    key = key.strip()
+                    key = key.strip().lower() # lower-case the key to avoid misses
                     value = value.strip()
                     
                     # ordered dict method to make sure the bottom setting always "wins"
