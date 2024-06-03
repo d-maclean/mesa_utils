@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='mesa_utils',
-    version='0.3',
+    version='0.31',
     description='Functions & classes for handling & representing MESA star output.',
     author='Duncan B. Maclean & Poojan Agrawal',
     author_email='dmaclean@unc.edu',
